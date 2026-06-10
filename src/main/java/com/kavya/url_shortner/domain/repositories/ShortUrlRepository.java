@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import org.springframework.data.domain.Pageable;
+
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,5 +27,9 @@ public interface ShortUrlRepository extends JpaRepository<ShortUrl,Long> {
 
     @Query("select u from ShortUrl u left join fetch u.createdBy")
     Page<ShortUrl> findAllShortUrls(Pageable pageable);
+
+    List<ShortUrl> findByIdInAndCreatedById(List<Long> ids, Long userId);
+
+    void deleteByExpiresAtBefore(Instant now);
 
 }

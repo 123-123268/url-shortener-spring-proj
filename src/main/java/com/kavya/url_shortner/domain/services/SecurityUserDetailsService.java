@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+// implements UserDetailsService this automatically triggers the DaoAuthenticationProvider
 public class SecurityUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
 
+    // after the UsernamePasswordAuthenticationFilter layer ->authentication is done using class which implements UserDetailsService
     public SecurityUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }

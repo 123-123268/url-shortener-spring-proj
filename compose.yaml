@@ -11,5 +11,7 @@ services:
   redis:
     image: redis
     container_name: redis-cache
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru
     ports:
       - "6379:6379"
+
