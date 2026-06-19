@@ -29,9 +29,9 @@ public class RateLimitingFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain
     ) throws ServletException, IOException {
-        System.out.println(
-                request.getMethod() + " " + request.getRequestURI()
-        );
+//        System.out.println(
+//                request.getMethod() + " " + request.getRequestURI()
+//        );
 
         String ip = request.getRemoteAddr();
 
@@ -64,9 +64,9 @@ public class RateLimitingFilter extends OncePerRequestFilter {
             return;
         }
 
-        System.out.println("Path: " + path);
-        System.out.println("Key: " + key);
-        System.out.println("Count: " + count);
+//        System.out.println("Path: " + path);
+//        System.out.println("Key: " + key);
+//        System.out.println("Count: " + count);
 
         filterChain.doFilter(request, response);
         return ;
