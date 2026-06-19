@@ -21,3 +21,97 @@ body > .container {
     display: flex;
     flex-direction: column;
 }
+body {
+    background-color: #0f172a !important;
+    color: white;
+}
+
+/* Gradient heading */
+.gradient-text {
+    font-size: 3rem;
+    font-weight: 800;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+/* Gradient button */
+.btn-gradient {
+    background: linear-gradient(135deg, #2563eb, #9333ea);
+    border: none;
+    color: white;
+    font-weight: 600;
+}
+
+.btn-gradient:hover {
+    background: linear-gradient(135deg, #1d4ed8, #7c3aed);
+    color: white;
+}
+
+/* Dark cards */
+.card.bg-dark {
+    background-color: #111827 !important;
+    border: 1px solid #374151;
+}
+
+.card-header {
+    background-color: #111827 !important;
+    border-bottom: 1px solid #374151;
+}
+
+/* Dark table */
+.table {
+    color: white !important;
+    margin-bottom: 0;
+}
+
+.table thead th {
+    color: white !important;
+    background-color: #111827 !important;
+    border-color: #374151 !important;
+}
+
+.table tbody td {
+    color: white !important;
+    background-color: #1f2937 !important;
+    border-color: #374151 !important;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+    background-color: #111827 !important;
+    color: white !important;
+}
+
+.table-hover tbody tr:hover > * {
+    background-color: #374151 !important;
+    color: white !important;
+}
+
+/* Links inside table */
+.table a {
+    color: #60a5fa !important;
+    text-decoration: none;
+}
+
+.table a:hover {
+    color: #93c5fd !important;
+}
+
+/* Form controls */
+.form-control {
+    background-color: #1f2937 !important;
+    border: 1px solid #374151 !important;
+    color: white !important;
+}
+
+.form-control::placeholder {
+    color: #9ca3af;
+}
+
+.form-control:focus {
+    background-color: #1f2937 !important;
+    color: white !important;
+    border-color: #8b5cf6 !important;
+    box-shadow: 0 0 0 .2rem rgba(139,92,246,.25);
+}

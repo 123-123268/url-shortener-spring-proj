@@ -73,7 +73,7 @@
                     <th>Created</th>
                     <th>Expires</th>
                     <th>Private</th>
-                    <th>Clicks</th>
+<!--                    <th>Clicks</th>-->
                 </tr>
                 </thead>
                 <tbody>
@@ -98,7 +98,7 @@
                         <span th:if="${url.private}" class="badge bg-secondary">Private</span>
                         <span th:unless="${url.private}" class="badge bg-success">Public</span>
                     </td>
-                    <td th:text="${url.clickCount}"></td>
+<!--                    <td th:text="${url.clickCount}"></td>-->
                 </tr>
                 </tbody>
             </table>

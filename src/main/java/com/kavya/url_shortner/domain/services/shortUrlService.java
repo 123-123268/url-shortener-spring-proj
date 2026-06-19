@@ -37,7 +37,14 @@ public class shortUrlService {
     public EntityMapper entityMapper;
 
     @Autowired
+    private final CounterService counterService;
+
+    @Autowired
     public UserRepository userRepository;
+
+    public shortUrlService(CounterService counterService) {
+        this.counterService = counterService;
+    }
 
     public PagedResult<shortUrlDto> findAllPublicShortUrls(int pageNumber, int pageSize) {
         pageNumber=pageNumber>1?pageNumber-1:0;
@@ -72,23 +79,56 @@ public class shortUrlService {
         shortUrlRepository.save(shortUrl);
         return entityMapper.toShortUrlDto(shortUrl);
     }
-    private String generateUniqueShortKey() {
-        String shortKey;
-        do {
-            shortKey = generateRandomShortKey();
-        } while (shortUrlRepository.existsByShortKey(shortKey));
-        return shortKey;
-    }
-    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    private static final int SHORT_KEY_LENGTH = 6;
-    private static final SecureRandom RANDOM = new SecureRandom();
 
-    public static String generateRandomShortKey() {
-        StringBuilder sb = new StringBuilder(SHORT_KEY_LENGTH);
-        for (int i = 0; i < SHORT_KEY_LENGTH; i++) {
-            sb.append(CHARACTERS.charAt(RANDOM.nextInt(CHARACTERS.length())));
+
+    private String generateUniqueShortKey() {
+        long id = counterService.nextId();
+        return encodeBase62FixedLength(id);
+    }
+
+//    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    private static final int SHORT_KEY_LENGTH = 6;
+//    private static final SecureRandom RANDOM = new SecureRandom();
+//
+//    public static String generateRandomShortKey() {
+//        StringBuilder sb = new StringBuilder(SHORT_KEY_LENGTH);
+//        for (int i = 0; i < SHORT_KEY_LENGTH; i++) {
+//            sb.append(CHARACTERS.charAt(RANDOM.nextInt(CHARACTERS.length())));
+//        }
+//        return sb.toString();
+//    }
+
+    private static final String BASE62 =
+            "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    public static String encodeBase62(long value) {
+
+        StringBuilder sb = new StringBuilder();
+        long newvalue=value^(123456789);
+
+        do {
+
+            sb.append(
+                    BASE62.charAt(
+                            (int)(newvalue % 62)
+                    )
+            );
+
+            newvalue /= 62;
+
+        } while(newvalue > 0);
+
+        return sb.reverse().toString();
+    }
+    public static String encodeBase62FixedLength(long value) {
+
+        String encoded = encodeBase62(value);
+
+        if (encoded.length() > SHORT_KEY_LENGTH) {
+            throw new IllegalStateException("Counter exceeded key length");
         }
-        return sb.toString();
+
+        return String.format("%" + SHORT_KEY_LENGTH + "s", encoded)
+                .replace(' ', '0');
     }
 
     @Transactional(readOnly = true)
