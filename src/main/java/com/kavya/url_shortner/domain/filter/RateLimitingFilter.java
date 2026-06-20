@@ -20,7 +20,7 @@ public class RateLimitingFilter extends OncePerRequestFilter {
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
-    private static final int MAX_REQUESTS_CREATE = 3;
+    private static final int MAX_REQUESTS_CREATE = 2;
     private static final int MAX_REQUESTS_LOGIN=2;
 
     @Override

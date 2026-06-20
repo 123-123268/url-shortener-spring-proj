@@ -7,11 +7,13 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.redis.core.RedisHash;
 
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
+@RedisHash
 public interface ShortUrlRepository extends JpaRepository<ShortUrl,Long> {
     @Query("select su from ShortUrl su left join fetch su.createdBy where su.isPrivate = false")
     Page<ShortUrl> findPublicShortUrls(Pageable pageable);
