@@ -9,5 +9,9 @@ class UrlShortnerApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
+	@Test
+	void printTimezone() {
+		System.out.println("TZ=" + java.util.TimeZone.getDefault().getID());
+		System.out.println("Zone=" + java.time.ZoneId.systemDefault());
+	}
 }
